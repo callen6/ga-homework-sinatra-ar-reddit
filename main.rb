@@ -21,6 +21,7 @@ class Comment < ActiveRecord::Base
 end
 
 get '/' do 
+	@submissions = Submission.all
 	erb :show_most_popular_submisssions
 end
 
