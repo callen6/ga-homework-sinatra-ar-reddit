@@ -5,10 +5,9 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
 
-set :database, { adapter: "postgresql"
-				database: "ga-reddit"
-				host: "localhost"
-}
+set :database, { adapter: "postgresql",
+				database: "ga-reddit",
+				host: "localhost"}
 class Subreddit < ActiveRecord::Base
 	has_many :submissions
 end
