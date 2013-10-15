@@ -49,7 +49,7 @@ get '/r/:subreddit_name/new' do
 end
 
 post '/r/:subreddit_name/create' do #unfinished
-	@submission = Submission.create(url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
+	@submission = Submission.create(url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author], subreddit_name: params["#{:subreddit_name}"])
 	redirect "/newest"
 end 
 
