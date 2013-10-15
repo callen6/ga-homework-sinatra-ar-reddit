@@ -64,7 +64,7 @@ end
 get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
 	@comments = Comments.all.find_by subreddit_name: "#{:subreddit_name}", submission_name: "#{:submission_name}"
-	erb :show_subreddits_submissions_comments_page
+	erb :show_subreddits_submissions_comments_page #unfinished
 end
 
 post '/r/:subreddit_name/:submission_name/create' do # consider moving this above post for
@@ -72,5 +72,6 @@ post '/r/:subreddit_name/:submission_name/create' do # consider moving this abov
 	@comment = Comment.create(author: params[:author], body: params[:body])											
 end
 
+# remember to rollback and re-migrate
 
 

@@ -1,6 +1,7 @@
 class CreateSubmissions < ActiveRecord::Migration
   def up
   	create_table :submissions do |t|
+      t.string :name
   		t.string :url
       t.string :image_url
   		t.text :body
