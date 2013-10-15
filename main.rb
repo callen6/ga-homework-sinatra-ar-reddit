@@ -21,16 +21,17 @@ class Comment < ActiveRecord::Base
 end
 
 get '/' do 
-	@submissions = Submission.all
+	@submissions = Submission.all.order('up_votes DESC')
 	erb :show_most_popular_submisssions
 end
 
 get '/new' do
+
 	erb :show_form_for_new_subreddit
 end
 
 get '/newest' do
-
+	@submissions = Submission.all.order('timestamp DESC')
 	erb :show_newest_submissions
 end
 

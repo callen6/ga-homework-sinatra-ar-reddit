@@ -1,7 +1,7 @@
 class CreateSubreddits < ActiveRecord::Migration
   def up
   	create_table :subreddits do |t|
-  		t.string :topic
+  		t.string :name
   	end
 
   end
