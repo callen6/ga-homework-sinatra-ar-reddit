@@ -1,3 +1,11 @@
+<% @comments.each do |comment| %>
+<%= comment.author %>
+<%= comment.body %>
+<%= comment.up_votes %>
+<%= comment.down_votes %>
+<%= comment.timestamp %>
+<% end %>
+
 <form action="/r/<%= @subreddit %>/ <%= @submission %>/ create" method="post" >
 	<div> author <input type="text" name="author"/></div>
 	<div> body <textarea name="body" cols=50 rows=5></textarea> </div>
