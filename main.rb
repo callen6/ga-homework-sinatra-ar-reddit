@@ -48,6 +48,7 @@ get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subre
 end
 
 get '/r/:subreddit_name/new' do 
+	@subreddit = :subreddit_name
 	erb :show_form_for_new_submission_to_subreddit
 end
 
