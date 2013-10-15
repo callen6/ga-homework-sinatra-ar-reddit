@@ -34,13 +34,14 @@ post '/create' do
 	@subreddit = Subreddit.create(name: params[:name])
 	redirect "/"
 end 
-
-#broken "timestamp does not exist"
+# binding.pry
+#broken undefined column, "timestamp does not exist"
 get '/newest' do 
-	@submissions = Submission.all.order('timestamps DESC')
+	@submissions = Submission.order('created_at DESC')
 	erb :show_newest_submissions
 end
 
+# broken, no method error, undefined method.each for nil class
 get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subreddit_name)
 							# or else @subreddit = :subreddit_name for use in page layout
 							# Also--if .find doesn't work, try .find_by subreddit_name: 
@@ -51,22 +52,28 @@ get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subre
 	erb :show_subreddits_most_popular_submissions
 end
 
+# shows form
 get '/r/:subreddit_name/new' do 
 	@subreddit = params[:subreddit_name]
 	erb :show_form_for_new_submission_to_subreddit
 end
 
+# redirect working
 post '/r/:subreddit_name/create' do 
 	@submission = Submission.create(subreddit_name: params[:subreddit_name], name: params[:name], url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
 	redirect "/"
 end 
 
+# binding.pry
+
+# no method error, undefined method 'order'
 get '/r/:subreddit_name/newest' do #consider using submission_id instead of timestamp
 	@subreddit = params[:subreddit_name]
-	@submissions = Submission.all.find_by(subreddit_name: params[:subreddit_name]).order('timestamp DESC')
+	@submissions = Submission.find_by(subreddit_name: params[:subreddit_name]).order('created_at DESC')
 	erb :show_subreddits_newest_submissions
 end
 
+# no method error, undefined method 'each' for nil class
 get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
 	@subreddit = params[:subreddit_name]
