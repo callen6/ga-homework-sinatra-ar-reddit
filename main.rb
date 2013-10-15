@@ -30,8 +30,8 @@ get '/new' do
 end
 
 post '/create' do
-	@submission = Submission.create(url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
-	redirect "/newest"
+	@subreddit = Subreddit.create(name: params[:name])
+	redirect "/r/#{:name}"
 end 
 
 get '/newest' do
@@ -39,14 +39,19 @@ get '/newest' do
 	erb :show_newest_submissions
 end
 
-get '/r/:subreddit_name' do #
-	@submissions = Submission.all.find('subreddit_id').order('up_votes DESC')
+get '/r/:subreddit_name' do 
+	@submissions = Submission.all.find('subreddit_name').order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
 
 get '/r/:subreddit_name/new' do 
 	erb :show_form_for_new_submission_to_subreddit
 end
+
+post '/r/:subreddit_name/create' do #unfinished
+	@submission = Submission.create(url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
+	redirect "/newest"
+end 
 
 
 get '/r/:subreddit_name/newest' do
