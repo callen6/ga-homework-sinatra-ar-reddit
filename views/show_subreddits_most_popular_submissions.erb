@@ -5,6 +5,6 @@
 	<%= submission.author %>
 	<%= submission.up_votes %>
 	<%= submission.down_votes %>
-	<%= submission.timestamp %>
+	<%= submission["timestamp"] %>
 <a href="/r/<%= @subreddit %>/ <%= @submission %>">comments</a>
 <% end %>

@@ -22,22 +22,24 @@ ActiveRecord::Schema.define(version: 20131013173636) do
     t.integer  "down_votes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "submission_id"
+    t.string   "submission_name"
   end
 
   create_table "submissions", force: true do |t|
+    t.string   "name"
     t.string   "url"
+    t.string   "image_url"
     t.text     "body"
     t.string   "author"
     t.integer  "up_votes"
     t.integer  "down_votes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "subreddit_id"
+    t.string   "subreddit_name"
   end
 
   create_table "subreddits", force: true do |t|
-    t.string "topic"
+    t.string "name"
   end
 
 end

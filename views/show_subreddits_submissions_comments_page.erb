@@ -3,7 +3,7 @@
 <%= comment.body %>
 <%= comment.up_votes %>
 <%= comment.down_votes %>
-<%= comment.timestamp %>
+<%= comment["timestamp"] %>
 <% end %>
 
 <form action="/r/<%= @subreddit %>/ <%= @submission %>/ create" method="post" >

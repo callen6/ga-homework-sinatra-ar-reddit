@@ -6,7 +6,7 @@ require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
 
 set :database, { adapter: "postgresql",
-				database: "ga-reddit",
+				database: "ga-reddit-homework",
 				host: "localhost"}
 class Subreddit < ActiveRecord::Base
 	has_many :submissions
@@ -32,7 +32,7 @@ end
 
 post '/create' do
 	@subreddit = Subreddit.create(name: params[:name])
-	redirect "/r/:name"
+	redirect "/"
 end 
 
 get '/newest' do
@@ -44,32 +44,33 @@ get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subre
 							# or else @subreddit = :subreddit_name for use in page layout
 							# Also--if .find doesn't work, try .find_by subreddit_name: 
 							# "#{:subreddit_name}"
-	@subreddit = :subreddit_name
-	@submissions = Submission.all.find(:subreddit_name).order('up_votes DESC')
+	@subreddit = params[:subreddit_name]
+	@submissions = Submission.all.find_by subreddit_name: params[:subreddit_name]
+	#.order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
 
 get '/r/:subreddit_name/new' do 
-	@subreddit = :subreddit_name
+	@subreddit = params[:subreddit_name]
 	erb :show_form_for_new_submission_to_subreddit
 end
 
 post '/r/:subreddit_name/create' do 
 	@submission = Submission.create(subreddit_name: params[:subreddit_name], url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
-	redirect "/newest"
+	redirect "/"
 end 
 
 get '/r/:subreddit_name/newest' do #consider using submission_id instead of timestamp
-	@subreddit = :subreddit_name
-	@submissions = Submission.all.find(:subreddit_name).order('timestamp DESC')
+	@subreddit = params[:subreddit_name]
+	@submissions = Submission.all.find_by(subreddit_name: params[:subreddit_name]).order('timestamp DESC')
 	erb :show_subreddits_newest_submissions
 end
 
 get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
-	@subreddit = :subreddit_name
-	@submission = @submission_name
-	@comments = Comments.all.find_by(subreddit_name: "#{:subreddit_name}", submission_name: "#{:submission_name}")
+	@subreddit = params[:subreddit_name]
+	@submission = params[:submission_name]
+	@comments = Comments.all.find_by(subreddit_name: params[:subreddit_name], submission_name: params[:submission_name])
 	# @comments = Comments.all.find_by subreddit_name: @subreddit, submission_name: @submission
 	erb :show_subreddits_submissions_comments_page #unfinished
 end
