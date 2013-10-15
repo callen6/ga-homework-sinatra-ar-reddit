@@ -44,6 +44,7 @@ get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subre
 							# or else @subreddit = :subreddit_name for use in page layout
 							# Also--if .find doesn't work, try .find_by subreddit_name: 
 							# "#{:subreddit_name}"
+	@subreddit = :subreddit_name
 	@submissions = Submission.all.find(:subreddit_name).order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
@@ -59,6 +60,7 @@ post '/r/:subreddit_name/create' do
 end 
 
 get '/r/:subreddit_name/newest' do #consider using submission_id instead of timestamp
+	@subreddit = :subreddit_name
 	@submissions = Submission.all.find(:subreddit_name).order('timestamp DESC')
 	erb :show_subreddits_newest_submissions
 end
