@@ -41,6 +41,8 @@ end
 
 get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subreddit_name)
 							# or else @subreddit = :subreddit_name for use in page layout
+							# Also--if .find doesn't work, try .find_by subreddit_name: 
+							# "#{:subreddit_name}"
 	@submissions = Submission.all.find(:subreddit_name).order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
@@ -61,8 +63,14 @@ end
 
 get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
-	
+	@comments = Comments.all.find_by subreddit_name: "#{:subreddit_name}", submission_name: "#{:submission_name}"
 	erb :show_subreddits_submissions_comments_page
 end
+
+post '/r/:subreddit_name/:submission_name/create' do # consider moving this above post for
+												# making new submissions to subreddits
+	@comment = Comment.create(author: params[:author], body: params[:body])											
+end
+
 
 
