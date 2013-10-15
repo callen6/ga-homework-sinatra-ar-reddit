@@ -45,7 +45,7 @@ get '/r/:subreddit_name' do # consider adding @subreddit = Subreddit.find(:subre
 							# Also--if .find doesn't work, try .find_by subreddit_name: 
 							# "#{:subreddit_name}"
 	@subreddit = params[:subreddit_name]
-	@submissions = Submission.all.find_by subreddit_name: params[:subreddit_name]
+	@submissions = Submission.find_by subreddit_name: params[:subreddit_name]
 	#.order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
@@ -56,7 +56,7 @@ get '/r/:subreddit_name/new' do
 end
 
 post '/r/:subreddit_name/create' do 
-	@submission = Submission.create(subreddit_name: params[:subreddit_name], url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
+	@submission = Submission.create(subreddit_name: params[:subreddit_name], name: params[:name], url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
 	redirect "/"
 end 
 
@@ -70,7 +70,7 @@ get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
 	@subreddit = params[:subreddit_name]
 	@submission = params[:submission_name]
-	@comments = Comments.all.find_by(subreddit_name: params[:subreddit_name], submission_name: params[:submission_name])
+	@comments = Comment.all.find_by(subreddit_name: params[:subreddit_name], submission_name: params[:submission_name])
 	# @comments = Comments.all.find_by subreddit_name: @subreddit, submission_name: @submission
 	erb :show_subreddits_submissions_comments_page #unfinished
 end
