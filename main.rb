@@ -10,6 +10,7 @@ set :database, { adapter: "postgresql",
 				host: "localhost"}
 class Subreddit < ActiveRecord::Base
 	has_many :submissions
+	# has_many :comments if so add fk subreddit_name column migration
 end
 class Submission < ActiveRecord::Base
 	has_many :comments
@@ -64,7 +65,10 @@ end
 
 get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
-	@comments = Comments.all.find_by subreddit_name: "#{:subreddit_name}", submission_name: "#{:submission_name}"
+	@subreddit = :subreddit_name
+	@submission = @submission_name
+	@comments = Comments.all.find_by(subreddit_name: "#{:subreddit_name}", submission_name: "#{:submission_name}")
+	# @comments = Comments.all.find_by subreddit_name: @subreddit, submission_name: @submission
 	erb :show_subreddits_submissions_comments_page #unfinished
 end
 
