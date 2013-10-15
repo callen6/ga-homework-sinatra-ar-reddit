@@ -2,6 +2,7 @@ class CreateSubmissions < ActiveRecord::Migration
   def up
   	create_table :submissions do |t|
   		t.string :url
+      t.string :image_url
   		t.text :body
   		t.string :author
   		t.integer :up_votes

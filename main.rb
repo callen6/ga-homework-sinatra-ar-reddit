@@ -26,31 +26,35 @@ get '/' do
 end
 
 get '/new' do
-
 	erb :show_form_for_new_subreddit
 end
+
+post '/create' do
+	@submission = Submission.create(url: params[:url], image_url: params[:image_url], body: params[:body], author: params[:author])
+	redirect "/newest"
+end 
 
 get '/newest' do
 	@submissions = Submission.all.order('timestamp DESC')
 	erb :show_newest_submissions
 end
 
-get '/r/:sub-reddit-name' do
-
+get '/r/:subreddit_name' do #
+	@submissions = Submission.all.find('subreddit_id').order('up_votes DESC')
 	erb :show_subreddits_most_popular_submissions
 end
 
-get '/r/:sub-reddit-name/new' do 
-
+get '/r/:subreddit_name/new' do 
 	erb :show_form_for_new_submission_to_subreddit
 end
 
-get '/r/:sub-reddit-name/newest' do
 
+get '/r/:subreddit_name/newest' do
+	@submissions
 	erb :show_subreddits_newest_submissions
 end
 
-get '/r/:sub-reddit-name/:submission-name' do
+get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
 	erb :show_subreddits_submissions_comments_page
 end
