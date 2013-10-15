@@ -35,8 +35,9 @@ post '/create' do
 	redirect "/"
 end 
 
-get '/newest' do
-	@submissions = Submission.all.order('timestamp DESC')
+#broken "timestamp does not exist"
+get '/newest' do 
+	@submissions = Submission.all.order('timestamps DESC')
 	erb :show_newest_submissions
 end
 
@@ -70,7 +71,7 @@ get '/r/:subreddit_name/:submission_name' do
 	# add new comments form from here
 	@subreddit = params[:subreddit_name]
 	@submission = params[:submission_name]
-	@comments = Comment.all.find_by(subreddit_name: params[:subreddit_name], submission_name: params[:submission_name])
+	# @comments = Comment.all.find_by(subreddit_name: params[:subreddit_name], submission_name: params[:submission_name])
 	# @comments = Comments.all.find_by subreddit_name: @subreddit, submission_name: @submission
 	erb :show_subreddits_submissions_comments_page #unfinished
 end

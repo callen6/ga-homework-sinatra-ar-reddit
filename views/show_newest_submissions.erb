@@ -1,10 +1,10 @@
 <% @submissions.each do |submission| %>
-	<%= submission.name %>
-	<%= submission.url %>
-	<%= submission.body %>
-	<%= submission.author %>
-	<%= submission.up_votes %>
-	<%= submission.down_votes %>
-	<%= submission["timestamp"] %>
+	<p><%= submission.name %></p>
+	<p><%= submission.url %></p>
+	<p><%= submission.body %></p>
+	<p><%= submission.author %></p>
+	<p><%= submission.up_votes %></p>
+	<p><%= submission.down_votes %></p>
+	<p><%= submission["timestamp"] %></p>
 <!-- <a href="/r/<%= @subreddit %>/ <%= @submission %>">comments</a> -->
 <% end %>
